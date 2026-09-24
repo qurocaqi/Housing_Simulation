@@ -113,20 +113,42 @@ rent_man = st.sidebar.number_input("月額家賃（管理費込・万円）", mi
 # 折りたたみ式の「詳細パラメータ」
 with st.sidebar.expander("⚙️ 詳細パラメータ（維持費・税金・諸費用など）"):
     st.markdown("**◆ 購入：維持費と税金**")
-    maint_fee_man = st.number_input("年間の管理費・修繕積立金（万円）", min_value=0, value=36, step=1)
-    prop_tax_man = st.number_input("年間の固定資産税（万円）", min_value=0, value=12, step=1)
-    annual_tax_paid_man = st.number_input("他で納入する税金（所得税など 万円）", min_value=0, value=50, step=1, help="住宅ローン控除の還付上限になります")
     
+    maint_fee_man = st.number_input("年間の管理費・修繕積立金（万円）", min_value=0, value=36, step=1)
+    st.caption("【目安】新築: 最初の数年は18〜25万 / 中古: 30〜45万")
+    
+    prop_tax_man = st.number_input("年間の固定資産税（万円）", min_value=0, value=12, step=1)
+    st.caption("【目安】新築: 10〜12万（最初の5年は半額軽減） / 中古: 10〜15万")
+    
+    annual_tax_paid_man = st.number_input("納める所得税など（万円）", min_value=0, value=50, step=1, 
+                                          help="ペアローンの場合は夫婦合算の税額を入力してください")
+    
+    st.markdown("---")
     st.markdown("**◆ 購入：不動産の諸費用・仕様**")
+    
     purchase_fee_rate = st.slider("購入時諸費用率（%）", 1.0, 10.0, 7.0 if not is_new else 5.0, 0.1) / 100
+    st.caption("【目安】新築: 3〜5%（仲介手数料なし） / 中古: 7〜8%")
+    
     sale_fee_rate = st.slider("売却時諸費用率（%）", 1.0, 5.0, 3.5, 0.1) / 100
+    st.caption("【目安】3.5%程度（仲介手数料が大部分を占める）")
+    
     building_ratio = st.slider("物件価格に占める建物割合（%）", 10, 100, 60, 1) / 100
+    st.caption("【目安】新築: 60〜70% / 中古: 50〜60%")
+    
     building_depreciation_rate = st.slider("建物の年間減価償却率（%）", 0.0, 5.0, 1.5, 0.1) / 100
+    st.caption("【目安】RC造マンションの法定償却率は1.5%程度")
 
+    st.markdown("---")
     st.markdown("**◆ 賃貸：諸費用**")
+    
     initial_fee_months = st.number_input("賃貸の初期費用（家賃何ヶ月分か）", min_value=0.0, value=4.0, step=0.5)
+    st.caption("【目安】敷金1 + 礼金1 + 仲介手数料1 +その他 = 4ヶ月分程度")
+    
     renewal_fee_months = st.number_input("賃貸の更新料（2年ごと・家賃何ヶ月分か）", min_value=0.0, value=1.0, step=0.5)
+    st.caption("【目安】東京近郊の一般的な更新料は家賃1ヶ月分")
+    
     annual_rent_increase_rate = st.slider("年間の家賃上昇率（%）", 0.0, 5.0, 1.0, 0.1) / 100
+    st.caption("【目安】日本の法制度上、居住中の家賃はほぼ上がらないため 0-1%推奨")
 
 # --- 3. グラフ描画と実行 ---
 
