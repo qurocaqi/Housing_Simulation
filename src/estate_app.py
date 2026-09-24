@@ -61,7 +61,10 @@ def simulate_home_ownership_cost(
     net_sale_proceeds = estimated_sale_price - sale_costs - remaining_balance - capital_gains_tax
     net_total_cost = (total_initial_outflow + total_loan_payment + total_maint_tax) - (total_tax_deduction + net_sale_proceeds)
 
-    return {"net_total_cost": net_total_cost}
+    return {
+        "net_total_cost": net_total_cost,
+        "monthly_payment": monthly_payment
+    }
 
 def simulate_rent_cost(monthly_rent, holding_years, initial_fee_months, renewal_fee_months, annual_rent_increase_rate):
     initial_cost = monthly_rent * initial_fee_months
@@ -175,6 +178,24 @@ if st.button("📊 シミュレーションを実行する", type="primary", use
         
         buy_costs.append(buy_res["net_total_cost"] / 10000)
         rent_costs.append(rent_res["net_total_cost"] / 10000)
+
+        monthly_mortgage = buy_res["monthly_payment"]
+
+    # 月々の支払いイメージをダッシュボード表示
+    st.markdown("💰 購入後の月々の支払いイメージ")
+    col1, col2, col3 = st.columns(3)
+    
+    # 毎月のローン
+    col1.metric("🏦 ローン返済額", f"{int(monthly_mortgage):,} 円")
+    
+    # 毎月の維持費（管理費・修繕積立金・固定資産税を12分割）
+    monthly_maint_and_tax = (annual_maint_fee + annual_prop_tax) / 12
+    col2.metric("🏢 管理費・税金等", f"{int(monthly_maint_and_tax):,} 円")
+    
+    # 上記の合計額
+    total_monthly_outflow = monthly_mortgage + monthly_maint_and_tax
+    col3.metric("合計キャッシュアウト", f"{int(total_monthly_outflow):,} 円", 
+                delta=f"想定家賃より {int(total_monthly_outflow - monthly_rent):,}円", delta_color="inverse")
 
     # グラフ描画
     st.markdown("### 📈 持ち出し総額の推移（万円）")
