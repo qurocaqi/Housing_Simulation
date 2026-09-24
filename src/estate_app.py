@@ -79,8 +79,8 @@ def simulate_rent_cost(monthly_rent, holding_years, initial_fee_months, renewal_
 
 # --- 2. StreamlitのUI構築 ---
 
-st.set_page_config(page_title="Buy vs Rent シミュレーター", layout="centered")
-st.title("🏡 住宅購入 vs 賃貸 シミュレーター")
+st.set_page_config(page_title="Buy vs Rent シミュレータ", layout="centered")
+st.title("🏡 住宅購入 vs 賃貸 シミュレータ")
 
 st.sidebar.header("📝 パラメータ設定")
 
