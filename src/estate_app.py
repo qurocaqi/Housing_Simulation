@@ -90,10 +90,10 @@ st.sidebar.header("📝 パラメータ設定")
 # 購入の基本設定
 st.sidebar.subheader("【1】住宅購入の基本")
 is_new = st.sidebar.checkbox("新築マンション（チェックなしで中古）", value=False)
-prop_price_man = st.sidebar.number_input("物件価格（万円）", min_value=1000, value=6000, step=100)
+prop_price_man = st.sidebar.number_input("物件価格（万円）", min_value=1000, value=7000, step=100)
 down_payment_man = st.sidebar.number_input("頭金（万円）", min_value=0, value=500, step=100)
 loan_term_years = st.sidebar.number_input("ローン借入期間（年）", min_value=10, max_value=50, value=35)
-interest_rate = st.sidebar.slider("ローン金利（年利％）", 0.1, 5.0, 1.0, 0.1) / 100
+interest_rate = st.sidebar.slider("ローン金利（年利％）", 0.1, 5.0, 2.0, 0.1) / 100
 
 # 将来の売却設定
 st.sidebar.subheader("【2】将来の売却想定")
@@ -102,7 +102,7 @@ sale_calc_method = st.sidebar.radio("売却価格の設定方法", ["年間下�
 if sale_calc_method == "年間下落率で指定":
     market_dep_rate = st.sidebar.slider("物件の年間下落率（％）", -2.0, 5.0, 1.5, 0.1) / 100
 else:
-    target_sale_price_man = st.sidebar.number_input("売却想定額（万円）", min_value=1000, value=5000, step=100)
+    target_sale_price_man = st.sidebar.number_input("売却想定額（万円）", min_value=1000, value=7000, step=100)
     target_sale_price = target_sale_price_man * 10000
     st.sidebar.info("💡 売却年数によらず常にこの価格で売却できたと仮定してグラフを描画します")
 
