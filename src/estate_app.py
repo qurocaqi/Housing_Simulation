@@ -126,7 +126,7 @@ with st.sidebar.expander("⚙️ 詳細パラメータ（維持費・税金・�
     st.markdown("**◆ 賃貸：諸費用**")
     initial_fee_months = st.number_input("賃貸の初期費用（家賃何ヶ月分か）", min_value=0.0, value=4.0, step=0.5)
     renewal_fee_months = st.number_input("賃貸の更新料（2年ごと・家賃何ヶ月分か）", min_value=0.0, value=1.0, step=0.5)
-    annual_rent_increase_rate = st.slider("年間の家賃上昇率（%）", 0.0, 5.0, 0.0, 0.1) / 100
+    annual_rent_increase_rate = st.slider("年間の家賃上昇率（%）", 0.0, 5.0, 1.0, 0.1) / 100
 
 # --- 3. グラフ描画と実行 ---
 
