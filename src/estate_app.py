@@ -114,13 +114,13 @@ rent_man = st.sidebar.number_input("月額家賃（管理費込・万円）", mi
 with st.sidebar.expander("⚙️ 詳細パラメータ（維持費・税金・諸費用など）"):
     st.markdown("**◆ 購入：維持費と税金**")
     
-    maint_fee_man = st.number_input("年間の管理費・修繕積立金（万円）", min_value=0, value=36, step=1)
+    maint_fee_man = st.number_input("年間の管理費・修繕積立金（万円）", min_value=0, value=20 if is_new else 35, step=1)
     st.caption("【目安】新築: 最初の数年は18〜25万 / 中古: 30〜45万")
     
     prop_tax_man = st.number_input("年間の固定資産税（万円）", min_value=0, value=12, step=1)
     st.caption("【目安】新築: 10〜12万（最初の5年は半額軽減） / 中古: 10〜15万")
     
-    annual_tax_paid_man = st.number_input("納める所得税など（万円）", min_value=0, value=50, step=1, 
+    annual_tax_paid_man = st.number_input("納める所得税など（万円）", min_value=0, value=100, step=1, 
                                           help="ペアローンの場合は夫婦合算の税額を入力してください")
     
     st.markdown("---")
