@@ -99,20 +99,9 @@ sale_calc_method = st.sidebar.radio("売却価格の設定方法", ["年間下�
 if sale_calc_method == "年間下落率で指定":
     market_dep_rate = st.sidebar.slider("物件の年間下落率（％）", -2.0, 5.0, 1.5, 0.1) / 100
 else:
-    target_year = st.sidebar.number_input("想定する売却時期（年後）", min_value=1, max_value=50, value=10)
-    target_sale_price_man = st.sidebar.number_input("その時の売却想定額（万円）", min_value=1000, value=5000, step=100)
-    
-    property_price = prop_price_man * 10000
+    target_sale_price_man = st.sidebar.number_input("売却想定額（万円）", min_value=1000, value=5000, step=100)
     target_sale_price = target_sale_price_man * 10000
-    base_price = property_price * 0.85 if is_new else property_price
-    
-    market_dep_rate = 1 - (target_sale_price / base_price) ** (1 / target_year)
-    rate_display = market_dep_rate * 100
-    
-    if rate_display > 0:
-        st.sidebar.info(f"💡 逆算された年間下落率: 約 {rate_display:.2f} %")
-    else:
-        st.sidebar.info(f"💡 逆算された年間上昇率: 約 {abs(rate_display):.2f} %")
+    st.sidebar.info("💡 売却年数によらず常にこの価格で売却できたと仮定してグラフを描画します")
 
 # 賃貸の基本設定
 st.sidebar.subheader("【3】賃貸の基本設定")
@@ -151,10 +140,13 @@ if st.button("📊 シミュレーションを実行する", type="primary", use
     annual_tax_paid = annual_tax_paid_man * 10000
     
     for y in years:
-        if is_new:
-            sale_price = (property_price * 0.85) * ((1 - market_dep_rate) ** y)
+        if sale_calc_method == "年間下落率で指定":
+            if is_new:
+                sale_price = (property_price * 0.85) * ((1 - market_dep_rate) ** y)
+            else:
+                sale_price = property_price * ((1 - market_dep_rate) ** y)
         else:
-            sale_price = property_price * ((1 - market_dep_rate) ** y)
+            sale_price = target_sale_price
 
         buy_res = simulate_home_ownership_cost(
             property_price=property_price,
