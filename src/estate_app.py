@@ -88,7 +88,7 @@ st.title("🏡 住宅購入 vs 賃貸 シミュレータ")
 st.sidebar.header("📝 パラメータ設定")
 
 # 購入の基本設定
-st.sidebar.subheader("【1】住宅購入の基本")
+st.sidebar.subheader("【1】住宅購入の基本設定")
 is_new = st.sidebar.checkbox("新築マンション（チェックなしで中古）", value=False)
 prop_price_man = st.sidebar.number_input("物件価格（万円）", min_value=1000, value=7000, step=100)
 down_payment_man = st.sidebar.number_input("頭金（万円）", min_value=0, value=500, step=100)
