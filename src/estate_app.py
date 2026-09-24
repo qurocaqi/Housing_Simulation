@@ -90,7 +90,7 @@ is_new = st.sidebar.checkbox("新築マンション（チェックなしで中�
 prop_price_man = st.sidebar.number_input("物件価格（万円）", min_value=1000, value=6000, step=100)
 down_payment_man = st.sidebar.number_input("頭金（万円）", min_value=0, value=500, step=100)
 loan_term_years = st.sidebar.number_input("ローン借入期間（年）", min_value=10, max_value=50, value=35)
-interest_rate = st.sidebar.slider("ローン金利（年利％）", 0.1, 3.0, 0.5, 0.1) / 100
+interest_rate = st.sidebar.slider("ローン金利（年利％）", 0.1, 5.0, 1.0, 0.1) / 100
 
 # 将来の売却設定
 st.sidebar.subheader("【2】将来の売却想定")
